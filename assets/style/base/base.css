@@ -17,11 +17,10 @@ h4,
 h5,
 h6 {
     margin: .5em 0 .5em;
-    font-family: 'Edu VIC WA NT Beginner', cursive;
 }
 
 p {
-    margin: 0 0 1em;
+    margin: 0 0 0em;
 }
 
 a {
@@ -29,7 +28,13 @@ a {
     color: unset;
 }
 
+.expensive {
+    color: red;
+}
 
+.cheap {
+    color: green;
+}
 
 /* Dont stretch my Media */
 img,
