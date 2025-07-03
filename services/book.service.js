@@ -5,9 +5,10 @@ const BOOK_KEY = 'booksDB'
 
 export const bookService ={
     query,
+    get,
 }
 
-
+_createBooks()
 
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
@@ -23,7 +24,9 @@ function query(filterBy = {}) {
         })
 }
 
-
+function get(bookId) {
+    return storageService.get(BOOK_KEY, bookId)
+}
 
 
 
@@ -42,18 +45,31 @@ function _createBook(title, description, amount, currencyCode, isOnSale) {
     return book
 }
 
-function _createBooks() {
-    let books = loadFromStorage(BOOK_KEY)
-    if (!books || !books.length) {
-        books = [
-            _createBook('Mitsipedia', 'A wikipedia about cats', 50, 'ILS', true),
-            _createBook('Javascript Basics', 'Your entry ticket to the js world!', 75, 'ILS', true),
-            _createBook('Coding Tips', 'Everybody needs a tip once in a while', 70, 'ILS', false),
-            _createBook()
-        ]
-        saveToStorage(BOOK_KEY, books)
+
+
+function _createBooks(){
+    const ctgs=['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+    const books=[] 
+    for (let i=0; i<20; i++) {
+        const book = {
+            id: utilService.makeId(),
+            title: utilService.makeLorem(2),
+            subtitle: utilService.makeLorem(4),
+            authors: [utilService.makeLorem(1)],
+            publishedDate: utilService.getRandomIntInclusive(1950,2024),
+            description: utilService.makeLorem(20),
+            pageCount: utilService.getRandomIntInclusive(20,600),
+            categories: [ctgs[utilService.getRandomIntInclusive(0,ctgs.length-1)]],
+            thumbnail: `http://coding-academy.org/books-photos/${i+1}.jpg`,
+            language: "en",
+            listPrice: {
+                amount: utilService.getRandomIntInclusive(80,500),
+                currencyCode: "EUR",
+                isOnSale: Math.random()>0.7
+            }
+        }
+        books.push(book)
     }
+    console.log('books',books)
+    saveToStorage(BOOK_KEY, books)
 }
-
-
-_createBooks()

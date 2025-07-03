@@ -24,6 +24,7 @@ export function App() {
                         <Route path="/home" element={<Home />} />
                         <Route path="/about" element={<AboutUs />} />
                         <Route path="/book" element={<BookIndex />} />
+                        <Route path="/book/:bookId" element={<BookDetails />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
